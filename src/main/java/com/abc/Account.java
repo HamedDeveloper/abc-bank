@@ -49,20 +49,33 @@ public class Account {
         double amount = sumTransactions();
         switch(accountType){
             case SAVINGS:
-                if (amount <= 1000)
-                    return amount * 0.001;
-                else
-                    return 1 + (amount-1000) * 0.002;
+                return getSavingInterest(amount);
             case MAXI_SAVINGS:
-                if (amount <= 1000)
-                    return amount * 0.02;
-                if (amount <= 2000)
-                    return 20 + (amount-1000) * 0.05;
-                return 70 + (amount-2000) * 0.1;
+                return getMaxInterest(amount);
             default:
-                return amount * 0.001;
+                return getCheckingInterest(amount);
         }
     }
+
+    private double getCheckingInterest(double amount) {
+        return amount * 0.001;
+    }
+
+    private double getMaxInterest(double amount) {
+        if (amount <= 1000)
+            return amount * 0.02;
+        if (amount <= 2000)
+            return 20 + (amount-1000) * 0.05;
+        return 70 + (amount-2000) * 0.1;
+    }
+
+    private double getSavingInterest(double amount) {
+        if (amount <= 1000)
+            return amount * 0.001;
+        else
+            return 1 + (amount-1000) * 0.002;
+    }
+
 
     public double sumTransactions() {
         double amount = 0.0;
