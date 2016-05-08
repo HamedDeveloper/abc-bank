@@ -25,13 +25,32 @@ public class AccountTest {
         Account checkingAccount = new Account(Account.CHECKING, 500);
         checkingAccount.withdraw(200);
         assertEquals(300, checkingAccount.getBalance(), DOUBLE_DELTA);
+        assertEquals(300, checkingAccount.getBalance(), DOUBLE_DELTA);
     }
 
     @Test
     public void withdrawMoreThanBalance() {
         thrown.expect(IllegalArgumentException.class);
+        thrown.expect(IllegalArgumentException.class);
         Account checkingAccount = new Account(Account.CHECKING, 500);
         checkingAccount.withdraw(700);
+    }
+
+    @Test
+    public void transfer() {
+        Account firstAccount = new Account(Account.CHECKING, 600);
+        Account secondAccount = new Account(Account.CHECKING, 300);
+        firstAccount.transfer(secondAccount, 100);
+        assertEquals(500, firstAccount.getBalance(), DOUBLE_DELTA);
+        assertEquals(400, secondAccount.getBalance(), DOUBLE_DELTA);
+    }
+
+    @Test
+    public void transferMoreThanBalance() {
+        thrown.expect(IllegalArgumentException.class);
+        Account firstAccount = new Account(Account.CHECKING, 600);
+        Account secondAccount = new Account(Account.CHECKING, 300);
+        firstAccount.transfer(secondAccount, 700);
     }
 
 }

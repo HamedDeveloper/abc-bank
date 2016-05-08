@@ -29,19 +29,19 @@ public class Account {
         if (amount <= 0) {
             throw new IllegalArgumentException("deposit amount must be greater than zero");
         } else {
-            balance += amount;
-            transactions.add(new Transaction(amount));
+            this.balance += amount;
+            this.transactions.add(new Transaction(amount));
         }
     }
 
     public void withdraw(double amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("withdraw amount must be greater than zero");
-        } else if (amount > balance) {
+        } else if (amount > this.balance) {
             throw new IllegalArgumentException("withdraw amount cannot be greater than balance");
         } else {
-            balance -= amount;
-            transactions.add(new Transaction(-amount));
+            this.balance -= amount;
+            this.transactions.add(new Transaction(-amount));
         }
     }
 
@@ -79,21 +79,35 @@ public class Account {
 
     public double sumTransactions() {
         double amount = 0.0;
-        for (Transaction t: transactions)
+        for (Transaction t: this.transactions)
             amount += t.amount;
         return amount;
     }
 
     public int getAccountType() {
-        return accountType;
+        return this.accountType;
     }
 
     public double getBalance(){
-        return balance;
+        return this.balance;
     }
 
     public List<Transaction> getTransactions(){
-        return transactions;
+        return this.transactions;
+    }
+
+    public void transfer(Account other, double amount){
+        if (amount <= 0) {
+            throw new IllegalArgumentException("transfer amount must be greater than zero");
+        } else if (this.balance < amount) {
+            throw new IllegalArgumentException("transfer amount must be less than balance");
+        } else {
+            this.balance -= amount;
+            other.balance += amount;
+            this.transactions.add(new Transaction(amount));
+            other.transactions.add(new Transaction(-amount));
+        }
+
     }
 
 }
