@@ -46,22 +46,8 @@ public class Customer {
     }
 
     private String statementForAccount(Account a) {
-        String s = "";
+        String s = a.getStatementHeader() +"\n";
 
-       //Translate to pretty account type
-        switch(a.getAccountType()){
-            case Account.CHECKING:
-                s += "Checking Account\n";
-                break;
-            case Account.SAVINGS:
-                s += "Savings Account\n";
-                break;
-            case Account.MAXI_SAVINGS:
-                s += "Maxi Savings Account\n";
-                break;
-        }
-
-        //Now total up all the transactions
         double total = 0.0;
         for (Transaction t : a.getTransactions()) {
             s += "  " + (t.amount < 0 ? "withdrawal" : "deposit") + " " + toDollars(t.amount) + "\n";

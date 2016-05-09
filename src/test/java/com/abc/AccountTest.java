@@ -14,7 +14,7 @@ public class AccountTest {
 
     @Test
     public void deposit() {
-        Account checkingAccount = new Account(Account.CHECKING, 500);
+        Account checkingAccount = new SavingAccount(500);
         assertEquals(500, checkingAccount.getBalance(), DOUBLE_DELTA);
         checkingAccount.deposit(300);
         assertEquals(800, checkingAccount.getBalance(), DOUBLE_DELTA);
@@ -22,7 +22,7 @@ public class AccountTest {
 
     @Test
     public void withdraw() {
-        Account checkingAccount = new Account(Account.CHECKING, 500);
+        Account checkingAccount = new CheckingAccount(500);
         checkingAccount.withdraw(200);
         assertEquals(300, checkingAccount.getBalance(), DOUBLE_DELTA);
         assertEquals(300, checkingAccount.getBalance(), DOUBLE_DELTA);
@@ -32,14 +32,14 @@ public class AccountTest {
     public void withdrawMoreThanBalance() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expect(IllegalArgumentException.class);
-        Account checkingAccount = new Account(Account.CHECKING, 500);
+        Account checkingAccount = new CheckingAccount(500);
         checkingAccount.withdraw(700);
     }
 
     @Test
     public void transfer() {
-        Account firstAccount = new Account(Account.CHECKING, 600);
-        Account secondAccount = new Account(Account.CHECKING, 300);
+        Account firstAccount = new SavingAccount(600);
+        Account secondAccount = new CheckingAccount(300);
         firstAccount.transfer(secondAccount, 100);
         assertEquals(500, firstAccount.getBalance(), DOUBLE_DELTA);
         assertEquals(400, secondAccount.getBalance(), DOUBLE_DELTA);
@@ -48,8 +48,8 @@ public class AccountTest {
     @Test
     public void transferMoreThanBalance() {
         thrown.expect(IllegalArgumentException.class);
-        Account firstAccount = new Account(Account.CHECKING, 600);
-        Account secondAccount = new Account(Account.CHECKING, 300);
+        Account firstAccount = new CheckingAccount(600);
+        Account secondAccount = new SavingAccount(300);
         firstAccount.transfer(secondAccount, 700);
     }
 

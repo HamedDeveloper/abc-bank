@@ -3,24 +3,17 @@ package com.abc;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Account {
+public abstract class Account {
 
-    public static final int CHECKING = 0;
-    public static final int SAVINGS = 1;
-    public static final int MAXI_SAVINGS = 2;
-
-    private final int accountType;
     private List<Transaction> transactions;
     private double balance;
 
-    public Account(int accountType) {
-        this.accountType = accountType;
+    public Account() {
         this.transactions = new ArrayList<>();
         this.balance = 0;
     }
 
-    public Account(int accountType, double openingBalance) {
-        this.accountType = accountType;
+    public Account(double openingBalance) {
         this.transactions = new ArrayList<>();
         this.balance = openingBalance;
     }
@@ -47,45 +40,14 @@ public class Account {
 
     public double interestEarned() {
         double amount = sumTransactions();
-        switch(accountType){
-            case SAVINGS:
-                return getSavingInterest(amount);
-            case MAXI_SAVINGS:
-                return getMaxInterest(amount);
-            default:
-                return getCheckingInterest(amount);
-        }
+        return getInterest(amount);
     }
-
-    private double getCheckingInterest(double amount) {
-        return amount * 0.001;
-    }
-
-    private double getMaxInterest(double amount) {
-        if (amount <= 1000)
-            return amount * 0.02;
-        if (amount <= 2000)
-            return 20 + (amount-1000) * 0.05;
-        return 70 + (amount-2000) * 0.1;
-    }
-
-    private double getSavingInterest(double amount) {
-        if (amount <= 1000)
-            return amount * 0.001;
-        else
-            return 1 + (amount-1000) * 0.002;
-    }
-
 
     public double sumTransactions() {
         double amount = 0.0;
         for (Transaction t: this.transactions)
             amount += t.amount;
         return amount;
-    }
-
-    public int getAccountType() {
-        return this.accountType;
     }
 
     public double getBalance(){
@@ -109,5 +71,9 @@ public class Account {
         }
 
     }
+
+    protected abstract double getInterest(double amount);
+    protected abstract String getStatementHeader();
+
 
 }
