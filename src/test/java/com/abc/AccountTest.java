@@ -8,7 +8,7 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.assertEquals;
 
 public class AccountTest {
-    private static final double DOUBLE_DELTA = 1e-15;
+    static final double DOUBLE_DELTA = 1e-15;
     private Account checkingAccount;
 
     @Rule
