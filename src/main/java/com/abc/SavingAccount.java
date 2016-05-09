@@ -11,7 +11,7 @@ public class SavingAccount extends Account{
     }
 
     @Override
-    protected double getInterest(double amount) {
+    protected double interestEarned(double amount) {
         if (amount <= 1000)
             return amount * 0.001;
         else

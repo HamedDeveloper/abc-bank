@@ -11,7 +11,7 @@ public class CheckingAccount extends Account {
     }
 
     @Override
-    protected double getInterest(double amount) {
+    protected double interestEarned(double amount) {
         return amount * 0.001;
     }
 

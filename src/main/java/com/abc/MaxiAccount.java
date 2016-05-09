@@ -11,7 +11,7 @@ public class MaxiAccount extends Account{
     }
 
     @Override
-    protected double getInterest(double amount) {
+    protected double interestEarned(double amount) {
         if (amount <= 1000)
             return amount * 0.02;
         if (amount <= 2000)

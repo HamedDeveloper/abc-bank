@@ -38,18 +38,6 @@ public abstract class Account {
         }
     }
 
-    public double interestEarned() {
-        double amount = sumTransactions();
-        return getInterest(amount);
-    }
-
-    public double sumTransactions() {
-        double amount = 0.0;
-        for (Transaction t: this.transactions)
-            amount += t.amount;
-        return amount;
-    }
-
     public double getBalance(){
         return this.balance;
     }
@@ -69,11 +57,9 @@ public abstract class Account {
             this.transactions.add(new Transaction(amount));
             other.transactions.add(new Transaction(-amount));
         }
-
     }
 
-    protected abstract double getInterest(double amount);
     protected abstract String getStatementHeader();
 
-
+    protected abstract double interestEarned(double balance);
 }
