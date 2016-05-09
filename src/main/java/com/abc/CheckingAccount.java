@@ -19,6 +19,4 @@ public class CheckingAccount extends Account {
     protected String getStatementHeader() {
         return "Checking Account";
     }
-
-
 }
