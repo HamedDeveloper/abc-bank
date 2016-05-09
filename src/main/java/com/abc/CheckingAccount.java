@@ -11,8 +11,8 @@ public class CheckingAccount extends Account {
     }
 
     @Override
-    protected double interestEarned(double amount) {
-        return amount * 0.001;
+    protected double interestEarned() {
+        return getBalance() * 0.001;
     }
 
     @Override

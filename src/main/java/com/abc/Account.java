@@ -61,5 +61,5 @@ public abstract class Account {
 
     protected abstract String getStatementHeader();
 
-    protected abstract double interestEarned(double balance);
+    protected abstract double interestEarned();
 }

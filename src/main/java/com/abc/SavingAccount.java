@@ -11,11 +11,12 @@ public class SavingAccount extends Account{
     }
 
     @Override
-    protected double interestEarned(double amount) {
-        if (amount <= 1000)
-            return amount * 0.001;
+    protected double interestEarned() {
+        double balance = getBalance();
+        if (balance <= 1000)
+            return balance * 0.001;
         else
-            return 1 + (amount-1000) * 0.002;
+            return 1 + (balance-1000) * 0.002;
     }
 
     @Override

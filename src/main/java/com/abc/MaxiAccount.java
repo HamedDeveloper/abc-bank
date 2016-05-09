@@ -11,12 +11,13 @@ public class MaxiAccount extends Account{
     }
 
     @Override
-    protected double interestEarned(double amount) {
-        if (amount <= 1000)
-            return amount * 0.02;
-        if (amount <= 2000)
-            return 20 + (amount-1000) * 0.05;
-        return 70 + (amount-2000) * 0.1;
+    protected double interestEarned() {
+        double balance = getBalance();
+        if (balance <= 1000)
+            return balance * 0.02;
+        if (balance <= 2000)
+            return 20 + (balance-1000) * 0.05;
+        return 70 + (balance-2000) * 0.1;
     }
 
     @Override
