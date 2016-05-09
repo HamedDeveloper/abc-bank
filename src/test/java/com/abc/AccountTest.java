@@ -1,5 +1,6 @@
 package com.abc;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -8,13 +9,18 @@ import static org.junit.Assert.assertEquals;
 
 public class AccountTest {
     private static final double DOUBLE_DELTA = 1e-15;
+    private Account checkingAccount;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Before
+    public void setUp(){
+        checkingAccount = new CheckingAccount(500);
+    }
+
     @Test
     public void deposit() {
-        Account checkingAccount = new SavingAccount(500);
         assertEquals(500, checkingAccount.getBalance(), DOUBLE_DELTA);
         checkingAccount.deposit(300);
         assertEquals(800, checkingAccount.getBalance(), DOUBLE_DELTA);
@@ -22,7 +28,6 @@ public class AccountTest {
 
     @Test
     public void withdraw() {
-        Account checkingAccount = new CheckingAccount(500);
         checkingAccount.withdraw(200);
         assertEquals(300, checkingAccount.getBalance(), DOUBLE_DELTA);
         assertEquals(300, checkingAccount.getBalance(), DOUBLE_DELTA);
@@ -32,7 +37,6 @@ public class AccountTest {
     public void withdrawMoreThanBalance() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expect(IllegalArgumentException.class);
-        Account checkingAccount = new CheckingAccount(500);
         checkingAccount.withdraw(700);
     }
 
@@ -52,5 +56,4 @@ public class AccountTest {
         Account secondAccount = new SavingAccount(300);
         firstAccount.transfer(secondAccount, 700);
     }
-
 }
